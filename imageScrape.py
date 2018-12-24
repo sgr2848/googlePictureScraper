@@ -94,15 +94,8 @@ class google_image_dwn:
                         link_d_c += 1
                 else:
                     link_d_c += 1
-            
-            
-
-
-
-
-        
-                
-        
+   
+       
 if __name__ == '__main__':
     g = google_image_dwn()
-    g.download_image('pigs')
+    g.download_image('hodor')
