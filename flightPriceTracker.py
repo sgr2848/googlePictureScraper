@@ -13,11 +13,14 @@ k vnay fw qyws jmul qg ucdcjhavu
 folpce-uotflkpfruhuf   
 '''
 import time
+#from bs4 import BeautifulSoup 
 import selenium as sl
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 import json 
+import requests
+from lxml import html
 
 def flighttracker(start_location_name,end_location_name, start_date, end_date,url='https://www.cheaptickets.com/',round_trip = True):
     cdr= sl.webdriver.Chrome(r'C:\Users\sg28r\Desktop\handon_ml\chromedriver.exe')
@@ -36,7 +39,9 @@ def flighttracker(start_location_name,end_location_name, start_date, end_date,ur
 
         j += 1 
         time.sleep(2)            
-    cdr.find_element_by_xpath("//form[@id='gcw-flights-form-hp-flight']//button[@type='submit']").send_keys(Keys.ENTER)
+    cdr.find_element_by_xpath("//form[@id='gcw-flights-form-hp-flight']//button[@type='submit']").send_keys(Keys.ENTER)    
     time.sleep(20) 
+    listingForFlights = cdr.find_element_by_xpath("/html[1]/body[1]/div[2]/div[11]/section[1]/div[1]/div[10]/ul[1]")
+    print(listingForFlights.text)
 flighttracker("New York","Kathmandu","05/20/2019","07/15/2019")
     
