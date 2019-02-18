@@ -1,4 +1,5 @@
-# googlePictureScraper
-A webscarping script, which downloads images from google images.It uses selenium(an automation library) to act as an actual person making
-search requests.
+Scarping Scripts
+</br>
+=====================================================
+Here are the small automation and web scraping scripts I write to make my life a little easier.
 
