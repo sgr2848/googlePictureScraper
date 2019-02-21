@@ -12,6 +12,8 @@ Confusion is the key
 k vnay fw qyws jmul qg ucdcjhavu
 folpce-uotflkpfruhuf   
 '''
+# this script is written to check the price of a flight and return an email if it dips below some threshold price
+
 import time
 #from bs4 import BeautifulSoup 
 import selenium as sl
@@ -53,7 +55,13 @@ def flighttracker(start_location_name,end_location_name, start_date, end_date,ur
         priceList.append(((wholeListing.text),(listingForFlights.text)))
       else:
         i += 1      
-    print(priceList())
+    print(priceList)
+    for tupal in priceList:
+      if('tupal[1]' <= 800):
+        sendEmail(tupal[1])
+      else:
+        sendEmail('not there yet')
+        pass
 
 def sendEmail(some_string):
 #This function checks the login and sends mail
