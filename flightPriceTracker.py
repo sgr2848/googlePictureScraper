@@ -21,7 +21,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 import json 
 import requests
 from lxml import html
-
+import smtplib
+ 
 def flighttracker(start_location_name,end_location_name, start_date, end_date,url='https://www.cheaptickets.com/',round_trip = True):
     cdr= sl.webdriver.Chrome(r'C:\Users\sg28r\Desktop\handon_ml\chromedriver.exe')
     action = ActionChains(cdr)
@@ -45,12 +46,46 @@ def flighttracker(start_location_name,end_location_name, start_date, end_date,ur
     cdr.find_element_by_xpath("//form[@id='gcw-flights-form-hp-flight']//button[@type='submit']").send_keys(Keys.ENTER)    
     time.sleep(20)
     priceList=[]
-    for i in range(1,5): 
-      listingForFlights = cdr.find_element_by_xpath("/html[1]/body[1]/div[2]/div[11]/section[1]/div[1]/div[10]/ul[1]/li[{}]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/span[1]".format(i))
-      wholeListing = cdr.find_element_by_xpath('/html[1]/body[1]/div[2]/div[11]/section[1]/div[1]/div[10]/ul[1]/li[{}]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]'.format(i))
-      priceList.append(((wholeListing.text),(listingForFlights.text)))
-      
-    print(priceList)
+    for i in range(1,20):
+      try: 
+        listingForFlights = cdr.find_element_by_xpath("/html[1]/body[1]/div[2]/div[11]/section[1]/div[1]/div[10]/ul[1]/li[{}]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/span[1]".format(i))
+        wholeListing = cdr.find_element_by_xpath('/html[1]/body[1]/div[2]/div[11]/section[1]/div[1]/div[10]/ul[1]/li[{}]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]'.format(i))
+        priceList.append(((wholeListing.text),(listingForFlights.text)))
+      else:
+        i += 1      
+    print(priceList())
+
+def sendEmail(some_string):
+#This function checks the login and sends mail
+         
+    print('Something')
+    gmail_user = 'thisacc23@gmail.com'
+    gmail_password = 'Newyork12345'
+
+    sent_f =gmail_user
+    subject ='PriceIsRight
+    to =[ 'sg28r8@gmail.com']
+    body = some_string
+
+    email_text = """\
+    From:%s
+    To:%s
+    Subject:%s
+    %s
+    """%(sent_f,",".join(to),subject,body)
+  
+    try:
+        server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+        server.ehlo()
+        server.login(gmail_user,gmail_password)
+        server.sendmail(sent_f,to,email_text)
+        server.close()
+        print('Well')       
+          
+    except:
+        print('Did not work')
+
+
     
 flighttracker("New York","Kathmandu","05/20/2019","07/15/2019")
     
