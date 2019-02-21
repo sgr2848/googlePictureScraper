@@ -67,8 +67,8 @@ def sendEmail(some_string):
 #This function checks the login and sends mail
          
     print('Something')
-    gmail_user = 'thisacc23@gmail.com'
-    gmail_password = 'Newyork12345'
+    gmail_user = '
+    gmail_password = '******'
 
     sent_f =gmail_user
     subject ='PriceIsRight
