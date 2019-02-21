@@ -25,7 +25,7 @@ import requests
 from lxml import html
 import smtplib
  
-def flighttracker(start_location_name,end_location_name, start_date, end_date,url='https://www.cheaptickets.com/',round_trip = True):
+def flight_tracker(start_location_name,end_location_name, start_date, end_date,url='https://www.cheaptickets.com/',round_trip = True):
     cdr= sl.webdriver.Chrome(r'C:\Users\sg28r\Desktop\handon_ml\chromedriver.exe')
     action = ActionChains(cdr)
     cdr.set_page_load_timeout('15')    
@@ -37,6 +37,7 @@ def flighttracker(start_location_name,end_location_name, start_date, end_date,ur
     j=0
     for i in somelist_fo_another_thing:
         if(j==3):
+          
           list_fo_something[j].send_keys(Keys.CONTROL + "a")
           list_fo_something[j].send_keys(Keys.DELETE)
           list_fo_something[j].send_keys(i)
@@ -50,30 +51,25 @@ def flighttracker(start_location_name,end_location_name, start_date, end_date,ur
     priceList=[]
     for i in range(1,20):
       try: 
-        listingForFlights = cdr.find_element_by_xpath("/html[1]/body[1]/div[2]/div[11]/section[1]/div[1]/div[10]/ul[1]/li[{}]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/span[1]".format(i))
-        wholeListing = cdr.find_element_by_xpath('/html[1]/body[1]/div[2]/div[11]/section[1]/div[1]/div[10]/ul[1]/li[{}]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]'.format(i))
-        priceList.append(((wholeListing.text),(listingForFlights.text)))
+        listing_for_flights = cdr.find_element_by_xpath("/html[1]/body[1]/div[2]/div[11]/section[1]/div[1]/div[10]/ul[1]/li[{}]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/span[1]".format(i))
+        whole_listing = cdr.find_element_by_xpath('/html[1]/body[1]/div[2]/div[11]/section[1]/div[1]/div[10]/ul[1]/li[{}]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]'.format(i))
+        priceList.append(((whole_listing.text),(listing_for_flights.text)))
       else:
         i += 1      
     print(priceList)
     for tupal in priceList:
       if('tupal[1]' <= 800):
-        sendEmail(tupal[1])
+        send_email(tupal[1])
       else:
-        sendEmail('not there yet')
+        send_email('not there yet')
         pass
 
-def sendEmail(some_string):
+def send_email(some_string):
 #This function checks the login and sends mail
          
     print('Something')
-<<<<<<< HEAD
-    gmail_user = '
+    gmail_user = ''
     gmail_password = '******'
-=======
-    gmail_user = '*******'
-    gmail_password = '*******'
->>>>>>> 7e2b696ddc5d27fc573fb567587ed1c1747baaf5
 
     sent_f =gmail_user
     subject ='PriceIsRight
@@ -100,5 +96,5 @@ def sendEmail(some_string):
 
 
     
-flighttracker("New York","Kathmandu","05/20/2019","07/15/2019")
+flight_tracker("New York","Kathmandu","05/20/2019","07/15/2019")
     
